@@ -76,7 +76,7 @@ main{padding:12px 18px 18px;max-width:1900px;margin:auto}
 .project-side .progress{width:100%;margin:6px 0}
 .project-actions-side{margin-top:8px;justify-content:flex-end;width:100%}
 
-.meta{font-size:11px;color:#454740;margin-top:4px}.progress{height:8px;border:1px solid #8b8d84;border-radius:20px;background:#a5a69e;overflow:hidden;margin:6px 0}.progress span{display:block;height:100%;background:linear-gradient(#e7e2d1,#73756d);border-radius:20px}.statusline{font-size:10px;color:#454740;white-space:nowrap}.stagegrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding-top:9px}.stage{min-height:62px;padding:7px 6px;text-align:left;position:relative;border:1px solid #777970;border-radius:6px;background:linear-gradient(145deg,#c7c7bd,#aeb0a6);box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 3px #6e706955,0 2px 3px #5554;font-size:10px;line-height:1.25;overflow-wrap:anywhere;color:#20221e}.stage .stage-num{font-weight:800;display:block;margin-bottom:3px}.stage:after{content:"";position:absolute;right:5px;top:5px;width:6px;height:6px;border-radius:50%;background:#8c8e85;border:1px solid #ffffff66}.stage.done{background:linear-gradient(145deg,#d3ddd0,#9cba9f)}.stage.done:after{background:var(--green)}.stage.work{background:linear-gradient(145deg,#86b7e8,#4d88c4);color:#fff}.stage.work:after{background:#d7eaff}.stage.attention{background:linear-gradient(145deg,#e1cf88,#bba85e)}.stage.attention:after{background:#f6db67}.stage.overdue{background:linear-gradient(145deg,#e68a6d,#bf4b34);color:#fff}.stage.overdue:after{background:#ffdbca}
+.meta{font-size:11px;color:#454740;margin-top:4px}.progress{height:8px;border:1px solid #8b8d84;border-radius:20px;background:#a5a69e;overflow:hidden;margin:6px 0}.progress span{display:block;height:100%;background:linear-gradient(#e7e2d1,#73756d);border-radius:20px}.statusline{font-size:10px;color:#454740;white-space:nowrap}.stagegrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding-top:9px}.stage{min-height:62px;padding:7px 6px;text-align:left;position:relative;border:1px solid #777970;border-radius:6px;background:linear-gradient(145deg,#c7c7bd,#aeb0a6);box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 3px #6e706955,0 2px 3px #5554;font-size:10px;line-height:1.25;overflow-wrap:anywhere;color:#20221e}.stage .stage-num{font-weight:800;display:block;margin-bottom:3px}.stage:after{content:"";position:absolute;right:5px;top:5px;width:8px;height:8px;border-radius:50%;background:#5a5c55;border:1px solid #2a2c28;box-shadow:0 0 0 1px #fff6}.stage.done{background:linear-gradient(145deg,#d3ddd0,#9cba9f)}.stage.done:after{background:#2f6b45;border-color:#1a3d28}.stage.work{background:linear-gradient(145deg,#86b7e8,#4d88c4);color:#fff}.stage.work:after{background:#1a4a7a;border-color:#0d2844}.stage.attention{background:linear-gradient(145deg,#e1cf88,#bba85e)}.stage.attention:after{background:#8a6b12;border-color:#4a3808}.stage.overdue{background:linear-gradient(145deg,#e68a6d,#bf4b34);color:#fff}.stage.overdue:after{background:#7a1f10;border-color:#3d0f08}
 .footer{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:16px 4px 0;color:#f0efe7;font-size:11px}.legend{display:flex;gap:18px;flex-wrap:wrap}.footstats{color:#22241f}
 dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(145deg,#d1d0c6,#b7b8ae);color:var(--ink);width:min(680px,calc(100% - 24px));max-height:90vh;padding:0;box-shadow:0 20px 80px #1118}dialog::backdrop{background:#16181399;backdrop-filter:blur(3px)}.modalhead{padding:18px 20px;border-bottom:1px solid #92948b;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.modalhead h2{margin:0 0 5px;font-size:20px}.modalbody{padding:18px 20px;max-height:65vh;overflow:auto}.close{border:0;background:transparent;font-size:24px;cursor:pointer}.field{margin-bottom:14px}.field label{display:block;font-weight:700;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;padding:10px;border:1px solid #888a81;border-radius:6px;background:#e2e1d7;color:#222}.field textarea{min-height:70px;resize:vertical}.rowfields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.filedrop{border:1px dashed #76786f;border-radius:8px;padding:18px;text-align:center;background:#d5d4ca}.filelist{display:flex;flex-direction:column;gap:8px;margin-top:12px}.fileitem{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #92948b;border-radius:7px;background:#d5d4ca}.fileicon{font-size:20px}.fileinfo{flex:1;min-width:0}.filename{font-weight:700;overflow-wrap:anywhere}.filesize{font-size:11px;color:#5d5f58}.empty{padding:18px;text-align:center;color:#55574f}
 .lib-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
@@ -108,6 +108,11 @@ dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(14
 .gantt-bar.overdue{background:#bf4b34}.gantt-bar.done{background:#72a781}
 .gantt-empty{padding:20px;text-align:center;color:#555}
 #chartDialog{width:min(960px,calc(100% - 24px))}
+.hist-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #92948b;border-radius:8px;background:#d5d4ca;margin-bottom:8px}
+.hist-item .hist-text{min-width:0;flex:1}
+.hist-item .hist-label{font-weight:700;font-size:13px}
+.hist-item .hist-time{font-size:11px;color:#5d5f58;margin-top:2px}
+
 
 </style>
 </head>
@@ -153,6 +158,7 @@ dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(14
         <option value="completed">Завершённые</option>
       </select>
       <button class="btn small" id="undoBtn" type="button" title="Отменить последнее действие (Ctrl+Z)" disabled>↩ Отмена</button>
+      <button class="btn small" id="openHistory" type="button" title="История изменений">🕐 История</button>
     </div>
   </div>
 
@@ -401,6 +407,7 @@ dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(14
 
   const STORAGE_KEY = 'ovikDeskProjectsV3';
   const LIB_KEY = 'ovikDeskLibraryV1';
+  const HISTORY_KEY = 'ovikDeskHistoryV1';
   const MAX_FILE_SIZE = 8 * 1024 * 1024;
   const HISTORY_LIMIT = 30;
 
@@ -422,6 +429,7 @@ dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(14
   let pendingLibFile = null; // { name, size, type, data } or null
   let historyStack = []; // snapshots before each change
   let historyLabels = [];
+  let historyTimes = [];
 
   function esc(v) {
     return String(v ?? '').replace(/[&<>"']/g, c =>
@@ -523,6 +531,50 @@ dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(14
     return JSON.parse(JSON.stringify(list));
   }
 
+  function cloneForHistory(list) {
+    var c = JSON.parse(JSON.stringify(list));
+    // без тяжёлых data-URL файлов — иначе history не влезет в localStorage
+    c.forEach(function (p) {
+      (p.stages || []).forEach(function (s) {
+        if (s.files && s.files.length) {
+          s.files = s.files.map(function (f) {
+            return { name: f.name, size: f.size, type: f.type || '', data: null };
+          });
+        }
+      });
+    });
+    return c;
+  }
+
+  function persistHistory() {
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify({
+        stack: historyStack,
+        labels: historyLabels,
+        times: historyTimes
+      }));
+    } catch (e) {
+      console.warn('История не сохранена (мало места)', e);
+    }
+  }
+
+  function loadHistory() {
+    try {
+      var raw = localStorage.getItem(HISTORY_KEY);
+      if (!raw) return;
+      var data = JSON.parse(raw);
+      if (data && Array.isArray(data.stack)) {
+        historyStack = data.stack;
+        historyLabels = Array.isArray(data.labels) ? data.labels : [];
+        historyTimes = Array.isArray(data.times) ? data.times : [];
+        while (historyLabels.length < historyStack.length) historyLabels.push('Изменение');
+        while (historyTimes.length < historyStack.length) historyTimes.push('');
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
   function updateUndoBtn() {
     var btn = document.getElementById('undoBtn');
     if (!btn) return;
@@ -533,12 +585,15 @@ dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(14
   }
 
   function pushHistory(label) {
-    historyStack.push(cloneProjects(projects));
+    historyStack.push(cloneForHistory(projects));
     historyLabels.push(label || 'Изменение');
+    historyTimes.push(new Date().toLocaleString('ru-RU'));
     if (historyStack.length > HISTORY_LIMIT) {
       historyStack.shift();
       historyLabels.shift();
+      historyTimes.shift();
     }
+    persistHistory();
     updateUndoBtn();
   }
 
@@ -548,11 +603,64 @@ dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(14
       return;
     }
     var label = historyLabels.pop();
+    historyTimes.pop();
     projects = historyStack.pop();
     persistOnly();
+    persistHistory();
     render();
     updateUndoBtn();
     toast('Отменено: ' + label);
+  }
+
+  function restoreFromHistory(index) {
+    if (index < 0 || index >= historyStack.length) return;
+    var label = historyLabels[index] || 'состояние';
+    if (!confirm('Восстановить состояние до: «' + label + '»?\nТекущие данные будут заменены.')) return;
+
+    var snapshot = cloneProjects(historyStack[index]);
+    // текущее состояние в историю, чтобы можно было вернуться
+    historyStack.push(cloneForHistory(projects));
+    historyLabels.push('Перед восстановлением: ' + label);
+    historyTimes.push(new Date().toLocaleString('ru-RU'));
+    if (historyStack.length > HISTORY_LIMIT) {
+      historyStack.shift();
+      historyLabels.shift();
+      historyTimes.shift();
+    }
+
+    projects = snapshot;
+    persistOnly();
+    persistHistory();
+    render();
+    updateUndoBtn();
+    document.getElementById('historyDialog').close();
+    toast('Восстановлено: ' + label);
+  }
+
+  function renderHistoryList() {
+    var root = document.getElementById('historyList');
+    if (!root) return;
+    if (!historyStack.length) {
+      root.innerHTML = '<div class="empty">История пуста. После удаления или изменений здесь появятся точки восстановления.<br><br>История сохраняется в браузере (до ' + HISTORY_LIMIT + ' шагов).</div>';
+      return;
+    }
+    var html = '';
+    // newest first
+    for (var i = historyStack.length - 1; i >= 0; i--) {
+      html += '<div class="hist-item">' +
+        '<div class="hist-text">' +
+          '<div class="hist-label">' + esc(historyLabels[i] || 'Изменение') + '</div>' +
+          '<div class="hist-time">' + esc(historyTimes[i] || '') + ' · снимок до этого действия</div>' +
+        '</div>' +
+        '<button class="btn small" type="button" data-hist-restore="' + i + '">Восстановить</button>' +
+      '</div>';
+    }
+    root.innerHTML = html;
+    root.querySelectorAll('[data-hist-restore]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        restoreFromHistory(parseInt(btn.getAttribute('data-hist-restore'), 10));
+      });
+    });
   }
 
   function persistOnly() {
@@ -1576,10 +1684,15 @@ dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(14
   document.getElementById('closeHistory2').addEventListener('click', function () {
     document.getElementById('historyDialog').close();
   });
+  document.getElementById('openHistory').addEventListener('click', function () {
+    renderHistoryList();
+    document.getElementById('historyDialog').showModal();
+  });
 
   // Init
   projects = loadProjects();
   library = loadLibrary();
+  loadHistory();
   updateUndoBtn();
   tick();
   setInterval(tick, 30000);
