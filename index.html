@@ -1,0 +1,1590 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Проекты</title>
+<style>
+:root{--bg:#8d908b;--panel:#c6c5bb;--panel2:#b5b5ac;--ink:#242522;--muted:#555750;--line:#777971;--cream:#e9e7dc;--orange:#e56a36;--green:#72a781;--blue:#4c91d1;--yellow:#d6b957;--red:#cf5639;--shadow:inset 0 1px 1px #ffffff99,inset 0 -2px 3px #57595155,0 3px 7px #30322c35}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#9a9d97,#797c77);color:var(--ink);font:13px/1.35 "Segoe UI",Arial,sans-serif;min-height:100vh}
+header{
+  background:linear-gradient(#d0cfc5,#b9b9af);
+  border:1px solid #777970;
+  border-radius:0 0 10px 10px;
+  box-shadow:var(--shadow);
+  padding:6px 12px;
+  position:sticky;top:0;z-index:5
+}
+.topbar{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:0;align-items:stretch}
+.topzone{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:4px 12px;min-width:0}
+.topzone + .topzone{border-left:1px solid #8a8c84}
+.zone-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#5a5c55;width:100%;margin:0 0 2px;line-height:1.2}
+.topzone.tasks-zone{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:14px;row-gap:2px;align-items:start}
+.tasks-zone .zone-label{grid-column:1 / -1}
+.tasks-zone .taskstats{grid-column:1;align-self:center}
+.tasks-zone .hotlist{grid-column:2;grid-row:2;margin:0;border:0;padding:0;max-height:52px;overflow:auto;width:auto;min-width:0}
+.taskstats{display:flex;flex-wrap:nowrap;gap:0}
+.stat{padding:0 8px;border-right:1px solid #999b92;white-space:nowrap}
+.stat:first-child{padding-left:0}.stat:last-child{border:0;padding-right:0}
+.num{font-size:16px;font-weight:750;line-height:1.1}
+.stat small{font-size:10px;color:#555750}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;border:1px solid #ffffff88}
+.hotlist .hot-title{font-weight:700;margin-bottom:2px;font-size:10px}
+.hotitem{display:flex;justify-content:space-between;gap:6px;align-items:center;padding:2px 0;border-bottom:1px solid #b0b2a855;font-size:10px;cursor:pointer;line-height:1.25}
+.hotitem:hover{filter:brightness(1.05)}
+.hotitem .hot-left{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hotitem .hot-tag{flex-shrink:0;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:#e68a6d;color:#fff}
+.hotitem .hot-tag.soon{background:#bba85e;color:#222}
+.topzone.actions-zone{align-content:center}
+.topzone.time-zone{flex-direction:column;align-items:flex-end;justify-content:center;gap:0;margin-left:0;color:#44463f;font-size:12px;white-space:nowrap;border-left:1px solid #8a8c84}
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filters select,.filters input,.topzone .btn,.filter-island .btn,.filter-island select,.filter-island input{
+  font:inherit;color:var(--ink);border:1px solid #7e8078;border-radius:7px;
+  padding:0 12px;height:36px;line-height:34px;box-sizing:border-box;
+  background:linear-gradient(#d6d5cb,#bcbdb3);box-shadow:var(--shadow);
+  display:inline-flex;align-items:center;justify-content:center
+}
+.filters select{min-width:150px}
+.filters input,.filter-island input{width:min(220px,30vw)}
+button{cursor:pointer}
+.btn:hover,.stage:hover{filter:brightness(1.06)}
+.btn.primary{background:linear-gradient(#f18a54,#d95d2b);color:#201c19;font-weight:700}
+.btn.small{font-size:12px;padding:0 10px}
+.actions-zone .btn{height:32px;line-height:30px;font-size:12px;padding:0 10px}
+.filter-island .btn.primary,.filter-island #undoBtn{
+  height:40px;line-height:38px;padding:0 16px;font-size:14px;font-weight:700
+}
+.filter-island select,.filter-island input{height:40px;line-height:38px;font-size:13px}
+.filter-island #undoBtn{min-width:110px}
+main{padding:12px 18px 18px;max-width:1900px;margin:auto}
+.filter-island{padding:10px 14px;margin-bottom:14px}
+.filter-island .filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+
+.hotbar{margin-bottom:14px}
+.panel{background:linear-gradient(145deg,#d0cfc5,#b7b8ae);border:1px solid #777a71;border-radius:8px;box-shadow:var(--shadow)}
+
+.project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.project{padding:13px 15px 15px;min-width:0}.projecthead{display:grid;grid-template-columns:1fr minmax(124px,140px);gap:13px;align-items:center;padding-bottom:11px;border-bottom:1px solid #999b92}.project-name{font-size:15px;font-weight:750;margin-bottom:5px;overflow-wrap:anywhere}.lib-item{padding:12px;border:1px solid #92948b;border-radius:8px;background:#d5d4ca;margin-bottom:10px}.lib-item .lib-title{font-weight:700;margin-bottom:4px}.lib-item .lib-meta{font-size:11px;color:#5d5f58}.lib-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.project-actions{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.project-actions .btn{
+  font:inherit;color:var(--ink);border:1px solid #7e8078;border-radius:7px;
+  padding:0 10px;height:28px;line-height:26px;font-size:11px;
+  background:linear-gradient(#d6d5cb,#bcbdb3);box-shadow:var(--shadow);
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer
+}
+.project-actions .btn:hover{filter:brightness(1.06)}
+.project-actions .btn.delete-project{color:var(--ink)}
+.project-side{display:flex;flex-direction:column;align-items:stretch;min-width:124px}
+.project-side .progress{width:100%;margin:6px 0}
+.project-actions-side{margin-top:8px;justify-content:flex-end;width:100%}
+
+.meta{font-size:11px;color:#454740;margin-top:4px}.progress{height:8px;border:1px solid #8b8d84;border-radius:20px;background:#a5a69e;overflow:hidden;margin:6px 0}.progress span{display:block;height:100%;background:linear-gradient(#e7e2d1,#73756d);border-radius:20px}.statusline{font-size:10px;color:#454740;white-space:nowrap}.stagegrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding-top:9px}.stage{min-height:62px;padding:7px 6px;text-align:left;position:relative;border:1px solid #777970;border-radius:6px;background:linear-gradient(145deg,#c7c7bd,#aeb0a6);box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 3px #6e706955,0 2px 3px #5554;font-size:10px;line-height:1.25;overflow-wrap:anywhere;color:#20221e}.stage .stage-num{font-weight:800;display:block;margin-bottom:3px}.stage:after{content:"";position:absolute;right:5px;top:5px;width:6px;height:6px;border-radius:50%;background:#8c8e85;border:1px solid #ffffff66}.stage.done{background:linear-gradient(145deg,#d3ddd0,#9cba9f)}.stage.done:after{background:var(--green)}.stage.work{background:linear-gradient(145deg,#86b7e8,#4d88c4);color:#fff}.stage.work:after{background:#d7eaff}.stage.attention{background:linear-gradient(145deg,#e1cf88,#bba85e)}.stage.attention:after{background:#f6db67}.stage.overdue{background:linear-gradient(145deg,#e68a6d,#bf4b34);color:#fff}.stage.overdue:after{background:#ffdbca}
+.footer{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:16px 4px 0;color:#f0efe7;font-size:11px}.legend{display:flex;gap:18px;flex-wrap:wrap}.footstats{color:#22241f}
+dialog{border:1px solid #65675f;border-radius:12px;background:linear-gradient(145deg,#d1d0c6,#b7b8ae);color:var(--ink);width:min(680px,calc(100% - 24px));max-height:90vh;padding:0;box-shadow:0 20px 80px #1118}dialog::backdrop{background:#16181399;backdrop-filter:blur(3px)}.modalhead{padding:18px 20px;border-bottom:1px solid #92948b;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.modalhead h2{margin:0 0 5px;font-size:20px}.modalbody{padding:18px 20px;max-height:65vh;overflow:auto}.close{border:0;background:transparent;font-size:24px;cursor:pointer}.field{margin-bottom:14px}.field label{display:block;font-weight:700;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;padding:10px;border:1px solid #888a81;border-radius:6px;background:#e2e1d7;color:#222}.field textarea{min-height:70px;resize:vertical}.rowfields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.filedrop{border:1px dashed #76786f;border-radius:8px;padding:18px;text-align:center;background:#d5d4ca}.filelist{display:flex;flex-direction:column;gap:8px;margin-top:12px}.fileitem{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #92948b;border-radius:7px;background:#d5d4ca}.fileicon{font-size:20px}.fileinfo{flex:1;min-width:0}.filename{font-weight:700;overflow-wrap:anywhere}.filesize{font-size:11px;color:#5d5f58}.empty{padding:18px;text-align:center;color:#55574f}
+.lib-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.lib-tabs .btn.active{background:linear-gradient(#f18a54,#d95d2b);color:#201c19;font-weight:700}
+.lib-cat{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;background:#a8aaa2;color:#222;margin-left:6px}
+.lib-cat.norm{background:#86b7e8;color:#fff}
+.lib-cat.lit{background:#9cba9f;color:#fff}
+.lib-cat.calc{background:#d6b957;color:#222}
+
+.modalfoot{display:flex;justify-content:space-between;gap:10px;padding:14px 20px;border-top:1px solid #92948b}.projectform{padding:20px}
+.stagerow{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.stagerow .stage-num-label{min-width:28px;font-weight:700;color:#454740}
+.stagerow input{flex:1;padding:10px;border:1px solid #888a81;border-radius:6px;background:#e2e1d7;color:#222}
+.stagerow .btn-icon{padding:8px 10px;min-width:36px;font-weight:700}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2a2c28;color:#f0efe7;padding:12px 20px;border-radius:8px;box-shadow:0 8px 24px #0006;z-index:100;opacity:0;transition:opacity .3s;pointer-events:none}.toast.show{opacity:1}
+@media(max-width:1300px){.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stage{font-size:9px;min-height:58px}.projecthead{grid-template-columns:1fr 100px}}
+@media(max-width:1100px){.topbar{grid-template-columns:1fr 1fr}.topzone.time-zone{grid-column:1 / -1;flex-direction:row;justify-content:flex-end;border-left:0;border-top:1px solid #8a8c84;padding-top:6px}}
+@media(max-width:760px){header{padding:6px 8px}.topbar{grid-template-columns:1fr}.topzone + .topzone{border-left:0;border-top:1px solid #8a8c84}.tasks-zone{grid-template-columns:1fr}.tasks-zone .hotlist{grid-column:1;max-height:80px}.filters{width:100%}.filters select,.filters input,.filter-island input{flex:1;min-width:0;width:auto}.project-grid{grid-template-columns:1fr}main{padding:10px}.project{padding:10px}.stage{font-size:10px;min-height:60px}.footer{align-items:flex-start;flex-direction:column}.rowfields{grid-template-columns:1fr}}
+
+.project-foot{margin-top:10px;padding-top:8px;border-top:1px solid #999b92;font-size:11px;color:#454740}
+.gantt-wrap{overflow:auto;max-height:55vh}
+.gantt-scale{display:flex;font-size:10px;color:#555;margin:0 0 8px 140px;gap:0;min-width:600px}
+.gantt-scale span{flex:1;text-align:center;border-left:1px solid #bbb;padding:2px 0}
+.gantt-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;min-width:600px}
+.gantt-label{width:130px;flex-shrink:0;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gantt-track{flex:1;height:22px;background:#c5c6be;border-radius:4px;position:relative;border:1px solid #8b8d84}
+.gantt-bar{position:absolute;top:2px;bottom:2px;border-radius:3px;min-width:4px;font-size:9px;line-height:18px;padding:0 4px;overflow:hidden;white-space:nowrap;color:#fff}
+.gantt-bar.todo{background:#8c8e85}.gantt-bar.work{background:#4d88c4}.gantt-bar.attention{background:#bba85e;color:#222}
+.gantt-bar.overdue{background:#bf4b34}.gantt-bar.done{background:#72a781}
+.gantt-empty{padding:20px;text-align:center;color:#555}
+#chartDialog{width:min(960px,calc(100% - 24px))}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="topzone tasks-zone">
+      <div class="zone-label">Задачи на сегодня</div>
+      <div class="taskstats">
+        <div class="stat"><div><span class="dot" style="background:#d8d8cf"></span><span class="num" id="taskOpen">0</span></div><small>К выполнению</small></div>
+        <div class="stat"><div><span class="dot" style="background:var(--red)"></span><span class="num" id="taskLate">0</span></div><small>Просрочено</small></div>
+        <div class="stat"><div><span class="dot" style="background:var(--yellow)"></span><span class="num" id="taskAttention">0</span></div><small>На проверке</small></div>
+        <div class="stat"><div><span class="dot" style="background:var(--green)"></span><span class="num" id="taskDone">0</span></div><small>Завершено</small></div>
+      </div>
+      <div class="hotlist" id="hotList"></div>
+    </div>
+    <div class="topzone actions-zone">
+      <div class="zone-label">Данные и справочники</div>
+      <div class="filters">
+        <button class="btn small" id="openLibrary" type="button">📚 Библиотека</button>
+        <button class="btn small" id="openChart" type="button">📊 График</button>
+        <button class="btn small" id="exportData" type="button" title="Скачать резервную копию">⬇ Экспорт</button>
+        <button class="btn small" id="importData" type="button" title="Загрузить данные из файла">⬆ Импорт</button>
+        <input type="file" id="importFile" accept=".json,application/json" style="display:none">
+      </div>
+    </div>
+    <div class="topzone time-zone">
+      <span class="date" id="date"></span>
+      <span id="clock"></span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="filter-island panel">
+    <div class="filters">
+      <button class="btn primary" id="addProject" type="button">＋ Проект</button>
+      <input id="search" placeholder="⌕  Поиск...">
+      <select id="filter" title="Фильтр по стадиям">
+        <option value="open">Без завершённых</option>
+        <option value="all">Все проекты</option>
+        <option value="active">Активные</option>
+        <option value="paused">Приостановленные</option>
+        <option value="completed">Завершённые</option>
+      </select>
+      <button class="btn small" id="undoBtn" type="button" title="Отменить последнее действие (Ctrl+Z)" disabled>↩ Отмена</button>
+    </div>
+  </div>
+
+  <div class="project-grid" id="projects"></div>
+  <div class="footer">
+    <div class="legend">
+      <span><i class="dot" style="background:var(--green)"></i>Готово</span>
+      <span><i class="dot" style="background:var(--blue)"></i>В работе</span>
+      <span><i class="dot" style="background:var(--yellow)"></i>Требует внимания</span>
+      <span><i class="dot" style="background:var(--red)"></i>Просрочено</span>
+      <span><i class="dot" style="background:#888a82"></i>Не начато</span>
+    </div>
+    <div class="footstats" id="footstats"></div>
+  </div>
+</main>
+
+<dialog id="stageDialog">
+  <div class="modalhead">
+    <div><h2 id="modalTitle">Этап</h2><div class="meta" id="modalProject"></div></div>
+    <button class="close" id="closeStage" type="button">×</button>
+  </div>
+  <div class="modalbody">
+    <div class="field">
+      <label for="stageStatus">Статус этапа</label>
+      <select id="stageStatus">
+        <option value="todo">Не начато</option>
+        <option value="work">В работе</option>
+        <option value="attention">Требует внимания</option>
+        <option value="overdue">Просрочено</option>
+        <option value="done">Готово</option>
+      </select>
+    </div>
+    <div class="rowfields">
+      <div class="field">
+        <label for="stageStart">Начало работ</label>
+        <input type="date" id="stageStart">
+      </div>
+      <div class="field">
+        <label for="stageDeadline">Окончание (срок)</label>
+        <input type="date" id="stageDeadline">
+      </div>
+    </div>
+    <div class="field">
+      <label for="stageOwner">Ответственный</label>
+      <input id="stageOwner" placeholder="ФИО или роль, например: Иванов / ОВиК">
+    </div>
+    <div class="field">
+      <label for="stageNote">Заметки по работе</label>
+      <textarea id="stageNote" placeholder="Что нужно сделать, вопросы, ссылки, замечания..."></textarea>
+    </div>
+    <div class="field">
+      <label>Ссылки на файлы (облако, диск, папка)</label>
+      <div class="meta" style="margin-bottom:8px">Удобнее, чем хранить файлы в браузере — открывается во внешней ссылке</div>
+      <div class="rowfields">
+        <div class="field" style="margin-bottom:0">
+          <input id="linkTitle" placeholder="Название, например: План ОВ">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <input id="linkUrl" type="url" placeholder="https://... ссылка на файл">
+        </div>
+      </div>
+      <button class="btn small" type="button" id="addStageLink" style="margin-top:8px">＋ Добавить ссылку</button>
+      <div class="filelist" id="linkList" style="margin-top:10px"></div>
+    </div>
+    <div class="field">
+      <label>Файлы в браузере (необязательно)</label>
+      <div class="filedrop">
+        <input type="file" id="fileInput" multiple>
+        <div class="meta">Локально в этом браузере, до 8 МБ. Для рабочих файлов лучше ссылка выше</div>
+      </div>
+      <div class="filelist" id="fileList"></div>
+    </div>
+  </div>
+  <div class="modalfoot" style="flex-wrap:wrap">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="deleteStage" type="button" style="color:#a33" title="Удалить этот этап из проекта">Удалить этап</button>
+      <button class="btn" id="addStageHere" type="button" title="Добавить новый этап после текущего">＋ Добавить этап</button>
+      <button class="btn" id="deleteFiles" type="button">Очистить файлы</button>
+    </div>
+    <button class="btn primary" id="saveStage" type="button">Сохранить изменения</button>
+  </div>
+</dialog>
+
+<dialog id="projectDialog">
+  <div class="modalhead">
+    <div><h2 id="projectDialogTitle">Новый проект</h2><div class="meta">Добавьте объект или измените его параметры</div></div>
+    <button class="close" id="closeProject" type="button">×</button>
+  </div>
+  <form id="projectForm" class="projectform">
+    <div class="field">
+      <label>Название проекта</label>
+      <input id="projectName" required placeholder="Например, ЖК Нансена">
+    </div>
+    <div class="rowfields">
+      <div class="field">
+        <label>Заказчик</label>
+        <input id="projectClient" placeholder="Название компании">
+      </div>
+      <div class="field">
+        <label>Текущая стадия</label>
+        <select id="projectStage">
+          <option>ПД</option>
+          <option>РД</option>
+          <option>ПД + РД</option>
+          <option>Рабочие изменения</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Статус проекта</label>
+      <select id="projectState">
+        <option value="active">Активный</option>
+        <option value="paused">Приостановлен</option>
+        <option value="completed">Завершён</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Договорной срок завершения</label>
+      <input type="date" id="projectContractDeadline">
+      <div class="meta">Только для справки, на статусы и «Что горит» не влияет</div>
+    </div>
+    <div class="modalfoot">
+      <button type="button" class="btn" id="cancelProject">Отмена</button>
+      <button class="btn primary" type="submit" id="projectSubmit">Создать проект</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="stagesDialog">
+  <div class="modalhead">
+    <div><h2>Настройка этапов</h2><div class="meta" id="stagesProjectName">Добавляйте, удаляйте и переименовывайте этапы объекта</div></div>
+    <button class="close" id="closeStages" type="button">×</button>
+  </div>
+  <div class="modalbody">
+    <div class="field">
+      <label>Этапы (от 1 до 40)</label>
+      <div class="meta" style="margin-bottom:10px">Используйте кнопки ＋ и ×, чтобы добавить или удалить этап. Порядок сохраняется как на пульте.</div>
+      <div id="stageNameFields"></div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" type="button" id="addStageBtn">＋ Добавить этап</button>
+        <button class="btn" type="button" id="resetStages">Сбросить к стандартным</button>
+      </div>
+    </div>
+  </div>
+  <div class="modalfoot">
+    <span class="meta" id="stageCountHint">Этапов: 0</span>
+    <button class="btn primary" id="saveStages" type="button">Сохранить этапы</button>
+  </div>
+</dialog>
+
+
+<dialog id="chartDialog">
+  <div class="modalhead">
+    <div><h2>Линейный график этапов</h2><div class="meta">По датам начала и окончания, заданным в этапах</div></div>
+    <button class="close" id="closeChart" type="button">×</button>
+  </div>
+  <div class="modalbody">
+    <div class="field">
+      <label for="chartProjectFilter">Объект</label>
+      <select id="chartProjectFilter"></select>
+    </div>
+    <div id="chartCanvas" class="gantt-wrap"></div>
+  </div>
+  <div class="modalfoot">
+    <button class="btn" id="closeChart2" type="button">Закрыть</button>
+  </div>
+</dialog>
+
+<dialog id="libraryDialog">
+  <div class="modalhead">
+    <div><h2>Библиотека</h2><div class="meta">Литература, нормативы и расчёты</div></div>
+    <button class="close" id="closeLibrary" type="button">×</button>
+  </div>
+  <div class="modalbody">
+    <div class="lib-tabs">
+      <button class="btn active" type="button" data-lib-tab="literature" id="libTabLit">📖 Литература</button>
+      <button class="btn" type="button" data-lib-tab="norms" id="libTabNorm">📋 Нормативы</button>
+      <button class="btn" type="button" data-lib-tab="calc" id="libTabCalc">∑ Расчёты</button>
+    </div>
+    <div id="libraryList"></div>
+    <hr style="border:0;border-top:1px solid #92948b;margin:16px 0">
+    <div class="field">
+      <label>Категория</label>
+      <select id="libCategory">
+        <option value="literature">Литература</option>
+        <option value="norms">Нормативы</option>
+        <option value="calc">Расчёты</option>
+      </select>
+    </div>
+    <div class="field"><label>Название</label><input id="libTitle" placeholder="Учебник, пособие или СП / ГОСТ..."></div>
+    <div class="rowfields">
+      <div class="field"><label>Автор / источник</label><input id="libAuthor" placeholder="Автор, издательство или Минстрой"></div>
+      <div class="field"><label>Ссылка (URL)</label><input id="libUrl" type="url" placeholder="https://..."></div>
+    </div>
+    <div class="field"><label>Заметки</label><textarea id="libNote" placeholder="Краткое описание, где применять..."></textarea></div>
+    <div class="field">
+      <label>Файл (необязательно)</label>
+      <div class="filedrop">
+        <input type="file" id="libFileInput">
+        <div class="meta">PDF, Excel, Word и др. · до 8 МБ · хранится в браузере</div>
+        <div class="meta" id="libFileInfo" style="margin-top:8px"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modalfoot">
+    <button class="btn" id="cancelLibEdit" type="button" style="display:none">Отмена правки</button>
+    <button class="btn primary" id="saveLibItem" type="button">＋ Добавить</button>
+  </div>
+</dialog>
+
+<dialog id="historyDialog">
+  <div class="modalhead">
+    <div><h2>История изменений</h2><div class="meta">Последние действия. Можно откатить состояние.</div></div>
+    <button class="close" id="closeHistory" type="button">×</button>
+  </div>
+  <div class="modalbody">
+    <div id="historyList"></div>
+  </div>
+  <div class="modalfoot">
+    <button class="btn" id="closeHistory2" type="button">Закрыть</button>
+  </div>
+</dialog>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+(function () {
+  'use strict';
+
+  const defaultStages = [
+    "ТЗ и исходные данные", "Архитектура", "Конструкции", "ОВиК", "ВК",
+    "ЭОМ", "СС и слаботочные системы", "ТХ", "Пожарная безопасность", "Теплоснабжение",
+    "Генплан", "Экспертиза", "Согласования", "ПД", "Поставка оборудования",
+    "Авторский надзор", "Шеф-монтаж", "Пусконаладка", "Исполнительная документация", "Закрытие проекта"
+  ];
+
+  const defaultProjects = [
+    { name: "ЖК Нансена", client: "ООО «СтройИнвест»", stage: "РД", state: "active", statuses: ["done","done","done","work","todo","todo","todo","todo","attention"] },
+    { name: "БМК Сергеево", client: "АО «ПромТех»", stage: "ПД", state: "active", statuses: ["done","done","done","done","done","done","done","done","attention","done","done","work","work"] },
+    { name: "Офисный центр", client: "ООО «БизнесСтрой»", stage: "ПД", state: "active", statuses: ["done","done","done","attention"] },
+    { name: "Склад с АБК", client: "ООО «Логистик»", stage: "РД", state: "active", statuses: ["done","done","done","work","todo","todo","todo","attention","todo","todo","todo","work"] },
+    { name: "ТЦ Южный", client: "ООО «РитейлГрупп»", stage: "РД", state: "active", statuses: ["done","done","done","done","todo","todo","todo","attention","todo","todo","todo","work"] },
+    { name: "Школа №12", client: "МКУ «Горстрой»", stage: "ПД", state: "paused", statuses: ["done","done","done","work","todo","todo","todo","todo","todo","todo","todo","work"] }
+  ];
+
+  const STORAGE_KEY = 'ovikDeskProjectsV3';
+  const LIB_KEY = 'ovikDeskLibraryV1';
+  const MAX_FILE_SIZE = 8 * 1024 * 1024;
+  const HISTORY_LIMIT = 30;
+
+  const statusLabels = {
+    todo: 'Не начато',
+    done: 'Готово',
+    work: 'В работе',
+    attention: 'Требует внимания',
+    overdue: 'Просрочено'
+  };
+
+  let projects = [];
+  let library = [];
+  let libTab = 'literature'; // literature | norms
+  let current = { p: 0, s: 0 };
+  let editingProjectIndex = null;
+  let editingStagesProjectIndex = null;
+  let editingLibIndex = null;
+  let pendingLibFile = null; // { name, size, type, data } or null
+  let historyStack = []; // snapshots before each change
+  let historyLabels = [];
+
+  function esc(v) {
+    return String(v ?? '').replace(/[&<>"']/g, c =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+    );
+  }
+
+  function toast(msg, ms) {
+    ms = ms || 2800;
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.classList.remove('show'); }, ms);
+  }
+
+  function makeStage(name, status) {
+    return { name: name, status: status || 'todo', note: '', start: '', deadline: '', owner: '', links: [], files: [] };
+  }
+
+  function todayStr() {
+    var d = new Date();
+    var m = d.getMonth() + 1;
+    var day = d.getDate();
+    return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  }
+
+  /** Статус для отображения: если срок прошёл и этап не готов — «просрочено» */
+  function effectiveStatus(s) {
+    if (!s) return 'todo';
+    if (s.status === 'done') return 'done';
+    if (s.deadline && s.deadline < todayStr()) return 'overdue';
+    return s.status || 'todo';
+  }
+
+  function daysUntil(deadline) {
+    if (!deadline) return null;
+    var t = new Date(deadline + 'T12:00:00');
+    var n = new Date();
+    n.setHours(12, 0, 0, 0);
+    return Math.round((t - n) / 86400000);
+  }
+
+  function normalizeProject(raw) {
+    var p = {
+      name: raw.name || 'Без названия',
+      client: raw.client || '',
+      stage: raw.stage || 'ПД',
+      state: (raw.state === 'paused' || raw.state === 'completed') ? raw.state : 'active',
+      contractDeadline: raw.contractDeadline || '',
+      stages: []
+    };
+    if (Array.isArray(raw.stages) && raw.stages.length) {
+      p.stages = raw.stages.map(function (s, i) {
+        return {
+          name: (s && s.name) || ('Этап ' + (i + 1)),
+          status: (s && statusLabels[s.status]) ? s.status : 'todo',
+          note: (s && s.note) || '',
+          start: (s && s.start) || '',
+          deadline: (s && s.deadline) || '',
+          owner: (s && s.owner) || '',
+          links: Array.isArray(s && s.links) ? s.links.filter(function (l) { return l && l.url; }) : [],
+          files: Array.isArray(s && s.files) ? s.files : []
+        };
+      });
+    } else {
+      var statuses = Array.isArray(raw.statuses) ? raw.statuses : [];
+      p.stages = defaultStages.map(function (name, i) {
+        return makeStage(name, statusLabels[statuses[i]] ? statuses[i] : 'todo');
+      });
+    }
+    return p;
+  }
+
+  function loadProjects() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length) {
+          return parsed.map(normalizeProject);
+        }
+      }
+      // миграция со старого ключа
+      var old = localStorage.getItem('ovikDeskProjectsV2');
+      if (old) {
+        var oldParsed = JSON.parse(old);
+        if (Array.isArray(oldParsed) && oldParsed.length) {
+          return oldParsed.map(normalizeProject);
+        }
+      }
+    } catch (e) {
+      console.warn('Не удалось прочитать данные', e);
+    }
+    return defaultProjects.map(normalizeProject);
+  }
+
+  function cloneProjects(list) {
+    return JSON.parse(JSON.stringify(list));
+  }
+
+  function updateUndoBtn() {
+    var btn = document.getElementById('undoBtn');
+    if (!btn) return;
+    btn.disabled = historyStack.length === 0;
+    btn.title = historyStack.length
+      ? ('Отменить: ' + (historyLabels[historyLabels.length - 1] || 'последнее действие') + ' (Ctrl+Z)')
+      : 'Нечего отменять';
+  }
+
+  function pushHistory(label) {
+    historyStack.push(cloneProjects(projects));
+    historyLabels.push(label || 'Изменение');
+    if (historyStack.length > HISTORY_LIMIT) {
+      historyStack.shift();
+      historyLabels.shift();
+    }
+    updateUndoBtn();
+  }
+
+  function undo() {
+    if (!historyStack.length) {
+      toast('Нечего отменять');
+      return;
+    }
+    var label = historyLabels.pop();
+    projects = historyStack.pop();
+    persistOnly();
+    render();
+    updateUndoBtn();
+    toast('Отменено: ' + label);
+  }
+
+  function persistOnly() {
+    try {
+      var json = JSON.stringify(projects);
+      if (json.length > 4.5 * 1024 * 1024) {
+        toast('Данные слишком большие. Удалите часть файлов или сделайте экспорт.');
+        return false;
+      }
+      localStorage.setItem(STORAGE_KEY, json);
+      return true;
+    } catch (e) {
+      console.error(e);
+      toast('Ошибка сохранения. Сделайте экспорт данных.');
+      return false;
+    }
+  }
+
+  function persist(label) {
+    // label optional: if provided, snapshot is taken BEFORE caller mutates —
+    // callers should call pushHistory before changing, then persistOnly.
+    // For convenience: if label given and we assume already mutated, just save.
+    return persistOnly();
+  }
+
+  function normalizeLibCat(c) {
+    if (c === 'norms' || c === 'calc') return c;
+    return 'literature';
+  }
+
+  function loadLibrary() {
+    try {
+      var raw = localStorage.getItem(LIB_KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          return parsed.map(function (item) {
+            if (!item || typeof item !== 'object') return item;
+            if (!item.category) item.category = 'literature';
+            return item;
+          });
+        }
+      }
+    } catch (e) {}
+    return [];
+  }
+
+  function saveLibrary() {
+    try {
+      localStorage.setItem(LIB_KEY, JSON.stringify(library));
+    } catch (e) {
+      toast('Не удалось сохранить библиотеку');
+    }
+  }
+
+  function renderLibrary() {
+    var root = document.getElementById('libraryList');
+    if (!root) return;
+    root.innerHTML = '';
+
+    // tabs UI
+    var tabLit = document.getElementById('libTabLit');
+    var tabNorm = document.getElementById('libTabNorm');
+    var tabCalc = document.getElementById('libTabCalc');
+    if (tabLit) tabLit.classList.toggle('active', libTab === 'literature');
+    if (tabNorm) tabNorm.classList.toggle('active', libTab === 'norms');
+    if (tabCalc) tabCalc.classList.toggle('active', libTab === 'calc');
+
+    var filtered = library.filter(function (item) {
+      var cat = normalizeLibCat(item.category);
+      return cat === libTab;
+    });
+
+    var emptyMsg = libTab === 'norms'
+      ? 'В нормативах пока пусто. Добавьте СП, ГОСТ, СНиП ниже.'
+      : libTab === 'calc'
+        ? 'В расчётах пока пусто. Добавьте методики, Excel, примеры ниже.'
+        : 'В литературе пока пусто. Добавьте учебники и пособия ниже.';
+
+    if (!filtered.length) {
+      root.innerHTML = '<div class="empty">' + emptyMsg + '</div>';
+      return;
+    }
+
+    filtered.forEach(function (item) {
+      var i = library.indexOf(item);
+      var div = document.createElement('div');
+      div.className = 'lib-item';
+      var cat = normalizeLibCat(item.category);
+      var catLabel = cat === 'norms' ? 'Нормативы' : cat === 'calc' ? 'Расчёты' : 'Литература';
+      var catCls = cat === 'norms' ? 'norm' : cat === 'calc' ? 'calc' : 'lit';
+      var link = item.url
+        ? '<div class="lib-meta"><a href="' + esc(item.url) + '" target="_blank" rel="noopener">' + esc(item.url) + '</a></div>'
+        : '';
+      var note = item.note ? '<div class="lib-meta" style="margin-top:4px">' + esc(item.note) + '</div>' : '';
+      var fileLine = (item.file && item.file.name)
+        ? '<div class="lib-meta" style="margin-top:4px">📎 ' + esc(item.file.name) +
+          (item.file.size ? ' · ' + formatSize(item.file.size) : '') + '</div>'
+        : '';
+      var dlBtn = (item.file && item.file.data)
+        ? '<button class="btn small" type="button" data-lib-dl="' + i + '">Скачать файл</button> '
+        : '';
+      div.innerHTML =
+        '<div class="lib-title">' + esc(item.title) +
+          '<span class="lib-cat ' + catCls + '">' + catLabel + '</span></div>' +
+        '<div class="lib-meta">' + esc(item.author || '—') + '</div>' +
+        link + fileLine + note +
+        '<div class="lib-actions">' +
+          dlBtn +
+          '<button class="btn small" type="button" data-lib-edit="' + i + '">Изменить</button>' +
+          '<button class="btn small" type="button" data-lib-del="' + i + '" style="color:#a33">Удалить</button>' +
+        '</div>';
+      root.appendChild(div);
+    });
+
+    root.querySelectorAll('[data-lib-edit]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var i = parseInt(btn.getAttribute('data-lib-edit'), 10);
+        editingLibIndex = i;
+        var item = library[i];
+        document.getElementById('libCategory').value = normalizeLibCat(item.category);
+        document.getElementById('libTitle').value = item.title || '';
+        document.getElementById('libAuthor').value = item.author || '';
+        document.getElementById('libUrl').value = item.url || '';
+        document.getElementById('libNote').value = item.note || '';
+        pendingLibFile = item.file ? {
+          name: item.file.name,
+          size: item.file.size,
+          type: item.file.type,
+          data: item.file.data
+        } : null;
+        updateLibFileInfo();
+        document.getElementById('libFileInput').value = '';
+        document.getElementById('saveLibItem').textContent = 'Сохранить изменения';
+        document.getElementById('cancelLibEdit').style.display = '';
+      });
+    });
+    root.querySelectorAll('[data-lib-del]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var i = parseInt(btn.getAttribute('data-lib-del'), 10);
+        if (!confirm('Удалить «' + library[i].title + '» из библиотеки?')) return;
+        library.splice(i, 1);
+        saveLibrary();
+        renderLibrary();
+        toast('Удалено из библиотеки');
+      });
+    });
+    root.querySelectorAll('[data-lib-dl]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var i = parseInt(btn.getAttribute('data-lib-dl'), 10);
+        var f = library[i] && library[i].file;
+        if (!f || !f.data) {
+          alert('Файл недоступен на этом устройстве.');
+          return;
+        }
+        var a = document.createElement('a');
+        a.href = f.data;
+        a.download = f.name || 'file';
+        a.click();
+      });
+    });
+  }
+
+  function updateLibFileInfo() {
+    var el = document.getElementById('libFileInfo');
+    if (!el) return;
+    if (!pendingLibFile) {
+      el.innerHTML = '';
+      return;
+    }
+    el.innerHTML = '📎 ' + esc(pendingLibFile.name) +
+      (pendingLibFile.size ? ' · ' + formatSize(pendingLibFile.size) : '') +
+      ' <button type="button" class="btn small" id="libFileClear" style="margin-left:8px">Убрать</button>';
+    var clr = document.getElementById('libFileClear');
+    if (clr) {
+      clr.addEventListener('click', function () {
+        pendingLibFile = null;
+        document.getElementById('libFileInput').value = '';
+        updateLibFileInfo();
+      });
+    }
+  }
+
+  function resetLibForm() {
+    editingLibIndex = null;
+    pendingLibFile = null;
+    document.getElementById('libCategory').value = libTab;
+    document.getElementById('libTitle').value = '';
+    document.getElementById('libAuthor').value = '';
+    document.getElementById('libUrl').value = '';
+    document.getElementById('libNote').value = '';
+    var fi = document.getElementById('libFileInput');
+    if (fi) fi.value = '';
+    updateLibFileInfo();
+    document.getElementById('saveLibItem').textContent = '＋ Добавить';
+    document.getElementById('cancelLibEdit').style.display = 'none';
+  }
+
+  function progress(p) {
+    if (!p || !p.stages || !p.stages.length) return 0;
+    var done = p.stages.filter(function (s) { return s.status === 'done'; }).length;
+    return Math.round((done / p.stages.length) * 100);
+  }
+
+  function formatSize(n) {
+    if (n < 1024) return n + ' Б';
+    if (n < 1048576) return (n / 1024).toFixed(1) + ' КБ';
+    return (n / 1048576).toFixed(1) + ' МБ';
+  }
+
+  function render() {
+    var q = (document.getElementById('search').value || '').toLowerCase();
+    var f = document.getElementById('filter').value;
+    var root = document.getElementById('projects');
+    root.innerHTML = '';
+
+    projects.forEach(function (p, pi) {
+      if (f === 'open' && p.state === 'completed') return;
+      if (f === 'active' && p.state !== 'active') return;
+      if (f === 'paused' && p.state !== 'paused') return;
+      if (f === 'completed' && p.state !== 'completed') return;
+      if (!(p.name + ' ' + (p.client || '')).toLowerCase().includes(q)) return;
+
+      var percent = progress(p);
+      var card = document.createElement('section');
+      card.className = 'panel project';
+      card.innerHTML =
+        '<div class="projecthead">' +
+          '<div>' +
+            '<div class="project-name">' + esc(p.name) + '</div>' +
+            '<div class="meta">Заказчик: ' + esc(p.client || '—') + '</div>' +
+            '<div class="meta">Стадия: ' + esc(p.stage) + (p.state === 'paused' ? ' · Приостановлен' : p.state === 'completed' ? ' · Завершён' : '') + '</div>' +
+            '<div class="project-actions">' +
+              '<button class="btn small edit-project" type="button">Объект</button> ' +
+              '<button class="btn small edit-stages" type="button">Этапы</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="project-side">' +
+            '<div style="text-align:right;font-size:10px;font-weight:700">' + percent + '%</div>' +
+            '<div class="progress"><span style="width:' + percent + '%"></span></div>' +
+            '<div class="statusline">' +
+              '<i class="dot" style="background:' + (
+                p.state === 'completed' ? 'var(--blue)' :
+                p.state === 'paused' ? '#888a82' : 'var(--green)'
+              ) + '"></i> ' +
+              (p.state === 'completed' ? 'Завершён' : p.state === 'paused' ? 'Приостановлен' : 'Активный') +
+            '</div>' +
+            '<div class="project-actions project-actions-side">' +
+              '<button class="btn small delete-project" type="button">Удалить</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="stagegrid"></div>' +
+        '<div class="project-foot">Договорной срок: <b>' +
+          (p.contractDeadline ? esc(p.contractDeadline) : '—') +
+        '</b></div>';
+
+      var grid = card.querySelector('.stagegrid');
+      p.stages.forEach(function (s, si) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        var eff = effectiveStatus(s);
+        b.className = 'stage ' + eff;
+        var extra = '';
+        if (s.owner) extra += '<span style="display:block;margin-top:3px;font-size:9px;opacity:.9">👤 ' + esc(s.owner) + '</span>';
+        if (s.links && s.links.length) extra += '<span style="display:block;margin-top:3px;font-size:9px">🔗 ' + s.links.length + '</span>';
+        if (s.files && s.files.length) extra += '<span style="display:block;margin-top:3px;font-size:9px">▧ ' + s.files.length + ' файл(ов)</span>';
+        b.innerHTML = '<span class="stage-num">' + (si + 1) + '.</span>' + esc(s.name) + extra;
+        var tip = s.name + ' — ' + (statusLabels[eff] || eff);
+        if (s.start) tip += ' · с ' + s.start;
+        if (s.deadline) tip += ' · до ' + s.deadline;
+        if (s.owner) tip += ' · ' + s.owner;
+        b.title = tip;
+        b.addEventListener('click', function () { openStage(pi, si); });
+        grid.appendChild(b);
+      });
+
+      card.querySelector('.edit-project').addEventListener('click', function () { openProjectEdit(pi); });
+      card.querySelector('.edit-stages').addEventListener('click', function () { openStagesEditor(pi); });
+      card.querySelector('.delete-project').addEventListener('click', function () {
+        if (confirm('Удалить проект «' + p.name + '»?')) {
+          pushHistory('Удаление проекта «' + p.name + '»');
+          projects.splice(pi, 1);
+          persistOnly();
+          render();
+          toast('Проект удалён');
+        }
+      });
+
+      root.appendChild(card);
+    });
+
+    var flat = [];
+    projects.forEach(function (p, pi) {
+      if (p.state === 'completed') return; // завершённые объекты не в «задачах на сегодня»
+      (p.stages || []).forEach(function (s, si) {
+        flat.push({ p: p, pi: pi, s: s, si: si, eff: effectiveStatus(s) });
+      });
+    });
+    document.getElementById('taskOpen').textContent =
+      flat.filter(function (x) { return x.eff === 'todo' || x.eff === 'work'; }).length;
+    document.getElementById('taskLate').textContent =
+      flat.filter(function (x) { return x.eff === 'overdue'; }).length;
+    document.getElementById('taskAttention').textContent =
+      flat.filter(function (x) { return x.eff === 'attention'; }).length;
+    document.getElementById('taskDone').textContent =
+      flat.filter(function (x) { return x.eff === 'done'; }).length;
+
+    // Блок «Что горит»: просрочено + срок в ближайшие 7 дней
+    var hotRoot = document.getElementById('hotList');
+    if (hotRoot) {
+      var hot = flat.filter(function (x) {
+        if (x.eff === 'done') return false;
+        if (x.eff === 'overdue') return true;
+        var d = daysUntil(x.s.deadline);
+        return d !== null && d >= 0 && d <= 7;
+      });
+      hot.sort(function (a, b) {
+        var da = a.s.deadline || '9999';
+        var db = b.s.deadline || '9999';
+        return da < db ? -1 : da > db ? 1 : 0;
+      });
+      if (!hot.length) {
+        hotRoot.innerHTML = '<div class="hot-title">Что горит</div><div class="meta">Нет срочных</div>';
+      } else {
+        var html = '<div class="hot-title">Что горит · ' + hot.length + '</div>';
+        hot.slice(0, 4).forEach(function (x) {
+          var tag, cls = '';
+          if (x.eff === 'overdue') {
+            tag = 'просрочено';
+          } else {
+            var d = daysUntil(x.s.deadline);
+            tag = d === 0 ? 'сегодня' : ('через ' + d + ' дн.');
+            cls = ' soon';
+          }
+          html += '<div class="hotitem" data-pi="' + x.pi + '" data-si="' + x.si + '">' +
+            '<div class="hot-left">' + esc(x.p.name) + ' · ' + esc(x.s.name) +
+            (x.s.owner ? ' · ' + esc(x.s.owner) : '') + '</div>' +
+            '<span class="hot-tag' + cls + '">' + tag + '</span></div>';
+        });
+        if (hot.length > 4) html += '<div class="meta">…ещё ' + (hot.length - 4) + '</div>';
+        hotRoot.innerHTML = html;
+        hotRoot.querySelectorAll('.hotitem').forEach(function (el) {
+          el.addEventListener('click', function () {
+            openStage(parseInt(el.getAttribute('data-pi'), 10), parseInt(el.getAttribute('data-si'), 10));
+          });
+        });
+      }
+    }
+
+    document.getElementById('footstats').textContent =
+      'Всего: ' + projects.length +
+      '   |   Активных: ' + projects.filter(function (p) { return p.state === 'active'; }).length +
+      '   |   Приостановлено: ' + projects.filter(function (p) { return p.state === 'paused'; }).length +
+      '   |   Завершено: ' + projects.filter(function (p) { return p.state === 'completed'; }).length;
+  }
+
+  function openStage(pi, si) {
+    current = { p: pi, s: si };
+    var p = projects[pi];
+    var s = p.stages[si];
+    document.getElementById('modalTitle').textContent = (si + 1) + '. ' + s.name;
+    var sub = p.name + ' · ' + p.stage;
+    var eff = effectiveStatus(s);
+    if (eff === 'overdue' && s.status !== 'overdue') sub += ' · авто-просрочено по сроку';
+    document.getElementById('modalProject').textContent = sub;
+    document.getElementById('stageStatus').value = s.status || 'todo';
+    document.getElementById('stageStart').value = s.start || '';
+    document.getElementById('stageDeadline').value = s.deadline || '';
+    document.getElementById('stageOwner').value = s.owner || '';
+    document.getElementById('stageNote').value = s.note || '';
+    document.getElementById('linkTitle').value = '';
+    document.getElementById('linkUrl').value = '';
+    document.getElementById('fileInput').value = '';
+    if (!s.links) s.links = [];
+    renderLinks();
+    renderFiles();
+    document.getElementById('stageDialog').showModal();
+  }
+
+  function renderLinks() {
+    var s = projects[current.p].stages[current.s];
+    var root = document.getElementById('linkList');
+    if (!root) return;
+    root.innerHTML = '';
+    if (!s.links || !s.links.length) {
+      root.innerHTML = '<div class="empty">Ссылок пока нет</div>';
+      return;
+    }
+    s.links.forEach(function (l, i) {
+      var item = document.createElement('div');
+      item.className = 'fileitem';
+      var title = l.title || l.url;
+      item.innerHTML =
+        '<span class="fileicon">🔗</span>' +
+        '<div class="fileinfo">' +
+          '<div class="filename"><a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(title) + '</a></div>' +
+          '<div class="filesize">' + esc(l.url) + '</div>' +
+        '</div>' +
+        '<button class="btn small" type="button" data-link-rm="' + i + '">×</button>';
+      item.querySelector('[data-link-rm]').addEventListener('click', function () {
+        s.links.splice(i, 1);
+        renderLinks();
+      });
+      root.appendChild(item);
+    });
+  }
+
+  function renderFiles() {
+    var s = projects[current.p].stages[current.s];
+    var root = document.getElementById('fileList');
+    root.innerHTML = '';
+    if (!s.files || !s.files.length) {
+      root.innerHTML = '<div class="empty">Пока нет прикреплённых файлов</div>';
+      return;
+    }
+    s.files.forEach(function (f, i) {
+      var item = document.createElement('div');
+      item.className = 'fileitem';
+      item.innerHTML =
+        '<span class="fileicon">▧</span>' +
+        '<div class="fileinfo">' +
+          '<div class="filename">' + esc(f.name) + '</div>' +
+          '<div class="filesize">' + formatSize(f.size || 0) + ' · ' + (f.data ? 'доступен локально' : 'только запись о файле') + '</div>' +
+        '</div>' +
+        '<button class="btn small" type="button" data-dl="' + i + '">Скачать</button>' +
+        '<button class="btn small" type="button" data-rm="' + i + '">×</button>';
+      item.querySelector('[data-dl]').addEventListener('click', function () { downloadFile(f); });
+      item.querySelector('[data-rm]').addEventListener('click', function () {
+        s.files.splice(i, 1);
+        renderFiles();
+      });
+      root.appendChild(item);
+    });
+  }
+
+  function downloadFile(f) {
+    if (!f.data) {
+      alert('Файл был добавлен в другом браузере/сеансе и не сохранён на этом устройстве. Прикрепите его повторно.');
+      return;
+    }
+    var a = document.createElement('a');
+    a.href = f.data;
+    a.download = f.name;
+    a.click();
+  }
+
+  function openProjectEdit(pi) {
+    editingProjectIndex = pi;
+    var p = projects[pi];
+    document.getElementById('projectDialogTitle').textContent = 'Изменить объект';
+    document.getElementById('projectSubmit').textContent = 'Сохранить объект';
+    document.getElementById('projectName').value = p.name;
+    document.getElementById('projectClient').value = p.client || '';
+    document.getElementById('projectStage').value = p.stage;
+    document.getElementById('projectState').value = p.state || 'active';
+    document.getElementById('projectContractDeadline').value = p.contractDeadline || '';
+    document.getElementById('projectDialog').showModal();
+  }
+
+  function openStagesEditor(pi) {
+    editingStagesProjectIndex = pi;
+    var p = projects[pi];
+    document.getElementById('stagesProjectName').textContent = p.name;
+    buildStageNameFields(p.stages.map(function (s) { return s.name; }));
+    document.getElementById('stagesDialog').showModal();
+  }
+
+  function getStageNameValues() {
+    return Array.from(document.querySelectorAll('[data-stage-name]')).map(function (x) {
+      return x.value;
+    });
+  }
+
+  function updateStageCountHint() {
+    var n = document.querySelectorAll('[data-stage-name]').length;
+    var hint = document.getElementById('stageCountHint');
+    if (hint) hint.textContent = 'Этапов: ' + n;
+    var addBtn = document.getElementById('addStageBtn');
+    if (addBtn) addBtn.disabled = n >= 40;
+  }
+
+  function buildStageNameFields(names) {
+    var list = (names && names.length) ? names.slice(0, 40) : ['Этап 1'];
+    if (!list.length) list = ['Этап 1'];
+    var root = document.getElementById('stageNameFields');
+    root.innerHTML = '';
+    list.forEach(function (name, i) {
+      var wrap = document.createElement('div');
+      wrap.className = 'stagerow';
+      wrap.innerHTML =
+        '<span class="stage-num-label">' + (i + 1) + '.</span>' +
+        '<input data-stage-name="' + i + '" value="' + esc(name || ('Этап ' + (i + 1))) + '" maxlength="80" placeholder="Название этапа">' +
+        '<button class="btn btn-icon" type="button" data-del-stage="' + i + '" title="Удалить этап">×</button>';
+      root.appendChild(wrap);
+    });
+    root.querySelectorAll('[data-del-stage]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var vals = getStageNameValues();
+        var idx = parseInt(btn.getAttribute('data-del-stage'), 10);
+        if (vals.length <= 1) {
+          toast('Должен остаться хотя бы один этап');
+          return;
+        }
+        vals.splice(idx, 1);
+        buildStageNameFields(vals);
+      });
+    });
+    updateStageCountHint();
+  }
+
+  function addStageRow() {
+    var vals = getStageNameValues();
+    if (vals.length >= 40) {
+      toast('Максимум 40 этапов');
+      return;
+    }
+    vals.push('Этап ' + (vals.length + 1));
+    buildStageNameFields(vals);
+  }
+
+  function exportData() {
+    var payload = {
+      version: 3,
+      exportedAt: new Date().toISOString(),
+      projects: projects,
+      library: library
+    };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'ovik-desk-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast('Резервная копия скачана');
+  }
+
+  function importData(file) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        var data = JSON.parse(reader.result);
+        var list = [];
+        if (Array.isArray(data)) list = data;
+        else if (data && Array.isArray(data.projects)) list = data.projects;
+        else throw new Error('Неверный формат');
+        if (!list.length) throw new Error('Пустой файл');
+        if (!confirm('Импортировать ' + list.length + ' проект(ов)? Текущие данные будут заменены.')) return;
+        pushHistory('Импорт данных');
+        projects = list.map(normalizeProject);
+        if (data && Array.isArray(data.library)) {
+          library = data.library;
+          saveLibrary();
+        }
+        persistOnly();
+        render();
+        toast('Данные успешно импортированы');
+      } catch (e) {
+        console.error(e);
+        alert('Не удалось прочитать файл. Убедитесь, что это корректный JSON-экспорт ОВиК Desk.');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  document.getElementById('addStageLink').addEventListener('click', function () {
+    var title = document.getElementById('linkTitle').value.trim();
+    var url = document.getElementById('linkUrl').value.trim();
+    if (!url) {
+      toast('Укажите ссылку');
+      return;
+    }
+    if (!/^https?:\/\//i.test(url) && !/^file:/i.test(url)) {
+      // разрешаем и другие схемы, но подскажем
+      if (!/^https?:\/\//i.test(url)) {
+        // auto-prefix http if looks like domain
+        if (/^[\w.-]+\.[a-z]{2,}/i.test(url)) url = 'https://' + url;
+      }
+    }
+    var s = projects[current.p].stages[current.s];
+    if (!s.links) s.links = [];
+    s.links.push({ title: title || url, url: url });
+    document.getElementById('linkTitle').value = '';
+    document.getElementById('linkUrl').value = '';
+    renderLinks();
+    toast('Ссылка добавлена — не забудьте сохранить этап');
+  });
+
+  document.getElementById('fileInput').addEventListener('change', function (e) {
+    var s = projects[current.p].stages[current.s];
+    if (!s.files) s.files = [];
+    var files = Array.from(e.target.files);
+    var idx = 0;
+    function next() {
+      if (idx >= files.length) {
+        e.target.value = '';
+        renderFiles();
+        return;
+      }
+      var file = files[idx++];
+      if (file.size > MAX_FILE_SIZE) {
+        alert('Файл «' + file.name + '» больше 8 МБ. Пропущен.');
+        next();
+        return;
+      }
+      var r = new FileReader();
+      r.onload = function () {
+        s.files.push({ name: file.name, size: file.size, type: file.type, data: r.result });
+        next();
+      };
+      r.onerror = function () {
+        alert('Не удалось прочитать файл «' + file.name + '»');
+        next();
+      };
+      r.readAsDataURL(file);
+    }
+    next();
+  });
+
+  document.getElementById('saveStage').addEventListener('click', function () {
+    var s = projects[current.p].stages[current.s];
+    var stageName = s.name;
+    pushHistory('Изменение этапа «' + stageName + '»');
+    s.status = document.getElementById('stageStatus').value;
+    s.start = document.getElementById('stageStart').value;
+    s.deadline = document.getElementById('stageDeadline').value;
+    s.owner = document.getElementById('stageOwner').value.trim();
+    s.note = document.getElementById('stageNote').value;
+    if (persistOnly()) {
+      document.getElementById('stageDialog').close();
+      render();
+      toast('Этап сохранён');
+    }
+  });
+
+  document.getElementById('deleteFiles').addEventListener('click', function () {
+    if (confirm('Удалить все прикреплённые файлы этого этапа?')) {
+      projects[current.p].stages[current.s].files = [];
+      renderFiles();
+    }
+  });
+
+  document.getElementById('deleteStage').addEventListener('click', function () {
+    var p = projects[current.p];
+    if (!p.stages || p.stages.length <= 1) {
+      toast('Должен остаться хотя бы один этап');
+      return;
+    }
+    var name = p.stages[current.s].name;
+    if (!confirm('Удалить этап «' + name + '»? Это действие можно отменить через Отмена / Ctrl+Z.')) return;
+    pushHistory('Удаление этапа «' + name + '»');
+    p.stages.splice(current.s, 1);
+    persistOnly();
+    document.getElementById('stageDialog').close();
+    render();
+    toast('Этап удалён');
+  });
+
+  document.getElementById('addStageHere').addEventListener('click', function () {
+    var p = projects[current.p];
+    if (p.stages.length >= 40) {
+      toast('Максимум 40 этапов');
+      return;
+    }
+    // сохранить текущие правки статуса/срока/заметки перед добавлением
+    var s = p.stages[current.s];
+    s.status = document.getElementById('stageStatus').value;
+    s.start = document.getElementById('stageStart').value;
+    s.deadline = document.getElementById('stageDeadline').value;
+    s.owner = document.getElementById('stageOwner').value.trim();
+    s.note = document.getElementById('stageNote').value;
+
+    var newName = 'Этап ' + (p.stages.length + 1);
+    var custom = prompt('Название нового этапа:', newName);
+    if (custom === null) return; // отмена
+    newName = (custom || '').trim() || newName;
+
+    pushHistory('Добавление этапа «' + newName + '»');
+    var insertAt = current.s + 1;
+    p.stages.splice(insertAt, 0, makeStage(newName, 'todo'));
+    persistOnly();
+    document.getElementById('stageDialog').close();
+    render();
+    toast('Этап добавлен');
+    // сразу открыть новый этап
+    setTimeout(function () { openStage(current.p, insertAt); }, 50);
+  });
+
+  document.getElementById('closeStage').addEventListener('click', function () {
+    document.getElementById('stageDialog').close();
+  });
+
+  var pd = document.getElementById('projectDialog');
+  document.getElementById('addProject').addEventListener('click', function () {
+    editingProjectIndex = null;
+    document.getElementById('projectForm').reset();
+    document.getElementById('projectDialogTitle').textContent = 'Новый проект';
+    document.getElementById('projectSubmit').textContent = 'Создать проект';
+    pd.showModal();
+  });
+  document.getElementById('closeProject').addEventListener('click', function () { pd.close(); });
+  document.getElementById('cancelProject').addEventListener('click', function () { pd.close(); });
+
+  document.getElementById('projectForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = {
+      name: document.getElementById('projectName').value.trim(),
+      client: document.getElementById('projectClient').value.trim(),
+      stage: document.getElementById('projectStage').value,
+      state: document.getElementById('projectState').value,
+      contractDeadline: document.getElementById('projectContractDeadline').value
+    };
+    if (!data.name) return;
+    if (editingProjectIndex !== null) {
+      pushHistory('Изменение объекта «' + projects[editingProjectIndex].name + '»');
+      Object.assign(projects[editingProjectIndex], data);
+      editingProjectIndex = null;
+      toast('Проект обновлён');
+    } else {
+      pushHistory('Создание проекта «' + data.name + '»');
+      projects.unshift({
+        name: data.name,
+        client: data.client,
+        stage: data.stage,
+        state: data.state,
+        contractDeadline: data.contractDeadline || '',
+        stages: defaultStages.map(function (name) { return makeStage(name); })
+      });
+      toast('Проект создан');
+    }
+    persistOnly();
+    e.target.reset();
+    pd.close();
+    document.getElementById('projectDialogTitle').textContent = 'Новый проект';
+    document.getElementById('projectSubmit').textContent = 'Создать проект';
+    render();
+  });
+
+  document.getElementById('addStageBtn').addEventListener('click', addStageRow);
+
+  document.getElementById('resetStages').addEventListener('click', function () {
+    if (confirm('Заменить текущий список стандартными 20 этапами?')) {
+      buildStageNameFields(defaultStages);
+    }
+  });
+
+  document.getElementById('saveStages').addEventListener('click', function () {
+    var pi = editingStagesProjectIndex;
+    var p = projects[pi];
+    var names = getStageNameValues().map(function (v, i) {
+      return (v || '').trim() || ('Этап ' + (i + 1));
+    });
+    if (!names.length) {
+      toast('Нужен хотя бы один этап');
+      return;
+    }
+    pushHistory('Настройка этапов «' + p.name + '»');
+    p.stages = names.map(function (name, i) {
+      return {
+        name: name,
+        status: (p.stages[i] && p.stages[i].status) || 'todo',
+        note: (p.stages[i] && p.stages[i].note) || '',
+        start: (p.stages[i] && p.stages[i].start) || '',
+        deadline: (p.stages[i] && p.stages[i].deadline) || '',
+        owner: (p.stages[i] && p.stages[i].owner) || '',
+        links: (p.stages[i] && p.stages[i].links) || [],
+        files: (p.stages[i] && p.stages[i].files) || []
+      };
+    });
+    persistOnly();
+    document.getElementById('stagesDialog').close();
+    render();
+    toast('Этапы сохранены');
+  });
+
+  document.getElementById('closeStages').addEventListener('click', function () {
+    document.getElementById('stagesDialog').close();
+  });
+
+  document.getElementById('search').addEventListener('input', render);
+  document.getElementById('filter').addEventListener('change', render);
+
+  document.getElementById('exportData').addEventListener('click', exportData);
+  document.getElementById('importData').addEventListener('click', function () {
+    document.getElementById('importFile').click();
+  });
+  document.getElementById('importFile').addEventListener('change', function (e) {
+    var file = e.target.files[0];
+    if (file) importData(file);
+    e.target.value = '';
+  });
+
+  function tick() {
+    var d = new Date();
+    document.getElementById('date').textContent = d.toLocaleDateString('ru-RU', {
+      weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
+    });
+    document.getElementById('clock').textContent = d.toLocaleTimeString('ru-RU', {
+      hour: '2-digit', minute: '2-digit'
+    });
+  }
+
+
+  function parseDateMs(s) {
+    if (!s) return null;
+    var t = Date.parse(s + 'T12:00:00');
+    return isNaN(t) ? null : t;
+  }
+
+  function renderChart() {
+    var sel = document.getElementById('chartProjectFilter');
+    var canvas = document.getElementById('chartCanvas');
+    if (!sel || !canvas) return;
+
+    var prev = sel.value;
+    sel.innerHTML = '<option value="all">Все активные объекты</option>';
+    projects.forEach(function (p, i) {
+      if (p.state === 'completed') return;
+      var o = document.createElement('option');
+      o.value = String(i);
+      o.textContent = p.name;
+      sel.appendChild(o);
+    });
+    if (prev && Array.from(sel.options).some(function (o) { return o.value === prev; })) {
+      sel.value = prev;
+    }
+
+    var list = [];
+    if (sel.value === 'all') {
+      projects.forEach(function (p, pi) {
+        if (p.state === 'completed') return;
+        (p.stages || []).forEach(function (s, si) {
+          list.push({ p: p, pi: pi, s: s, si: si });
+        });
+      });
+    } else {
+      var pi = parseInt(sel.value, 10);
+      var p = projects[pi];
+      if (p) {
+        (p.stages || []).forEach(function (s, si) {
+          list.push({ p: p, pi: pi, s: s, si: si });
+        });
+      }
+    }
+
+    var withDates = list.filter(function (x) {
+      return parseDateMs(x.s.start) || parseDateMs(x.s.deadline);
+    });
+
+    if (!withDates.length) {
+      canvas.innerHTML = '<div class="gantt-empty">Нет этапов с датами начала или окончания.<br>Откройте этап и заполните поля «Начало работ» и «Окончание».</div>';
+      return;
+    }
+
+    var minT = Infinity, maxT = -Infinity;
+    withDates.forEach(function (x) {
+      var a = parseDateMs(x.s.start);
+      var b = parseDateMs(x.s.deadline);
+      if (a != null) { minT = Math.min(minT, a); maxT = Math.max(maxT, a); }
+      if (b != null) { minT = Math.min(minT, b); maxT = Math.max(maxT, b); }
+    });
+    // pad range a bit
+    var day = 86400000;
+    minT -= day * 2;
+    maxT += day * 2;
+    if (maxT <= minT) maxT = minT + day * 14;
+    var span = maxT - minT;
+
+    // scale labels ~6 ticks
+    var scaleHtml = '<div class="gantt-scale">';
+    for (var i = 0; i < 6; i++) {
+      var t = minT + (span * i) / 5;
+      var d = new Date(t);
+      var label = ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2);
+      scaleHtml += '<span>' + label + '</span>';
+    }
+    scaleHtml += '</div>';
+
+    var rows = '';
+    withDates.forEach(function (x) {
+      var a = parseDateMs(x.s.start);
+      var b = parseDateMs(x.s.deadline);
+      if (a == null && b != null) a = b - day;
+      if (b == null && a != null) b = a + day;
+      if (b < a) { var tmp = a; a = b; b = tmp; }
+      var left = ((a - minT) / span) * 100;
+      var width = Math.max(((b - a) / span) * 100, 0.8);
+      var eff = effectiveStatus(x.s);
+      var label = (sel.value === 'all' ? x.p.name + ': ' : '') + (x.si + 1) + '. ' + x.s.name;
+      rows += '<div class="gantt-row">' +
+        '<div class="gantt-label" title="' + esc(label) + '">' + esc(label) + '</div>' +
+        '<div class="gantt-track">' +
+          '<div class="gantt-bar ' + eff + '" style="left:' + left + '%;width:' + width + '%" title="' +
+            esc((x.s.start || '—') + ' → ' + (x.s.deadline || '—')) + '"></div>' +
+        '</div></div>';
+    });
+
+    canvas.innerHTML = scaleHtml + rows;
+  }
+
+  document.getElementById('openChart').addEventListener('click', function () {
+    renderChart();
+    document.getElementById('chartDialog').showModal();
+  });
+  document.getElementById('closeChart').addEventListener('click', function () {
+    document.getElementById('chartDialog').close();
+  });
+  document.getElementById('closeChart2').addEventListener('click', function () {
+    document.getElementById('chartDialog').close();
+  });
+  document.getElementById('chartProjectFilter').addEventListener('change', renderChart);
+
+  // Undo
+  document.getElementById('undoBtn').addEventListener('click', undo);
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'Z') && !e.shiftKey) {
+      var tag = (e.target && e.target.tagName) || '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      e.preventDefault();
+      undo();
+    }
+  });
+
+  // Library
+  document.getElementById('openLibrary').addEventListener('click', function () {
+    resetLibForm();
+    renderLibrary();
+    document.getElementById('libraryDialog').showModal();
+  });
+  document.getElementById('closeLibrary').addEventListener('click', function () {
+    document.getElementById('libraryDialog').close();
+  });
+  document.getElementById('cancelLibEdit').addEventListener('click', resetLibForm);
+
+  document.getElementById('libTabLit').addEventListener('click', function () {
+    libTab = 'literature';
+    resetLibForm();
+    renderLibrary();
+  });
+  document.getElementById('libTabNorm').addEventListener('click', function () {
+    libTab = 'norms';
+    resetLibForm();
+    renderLibrary();
+  });
+  document.getElementById('libTabCalc').addEventListener('click', function () {
+    libTab = 'calc';
+    resetLibForm();
+    renderLibrary();
+  });
+
+  document.getElementById('libFileInput').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (file.size > MAX_FILE_SIZE) {
+      alert('Файл больше 8 МБ. Выберите файл поменьше или укажите ссылку.');
+      e.target.value = '';
+      return;
+    }
+    var r = new FileReader();
+    r.onload = function () {
+      pendingLibFile = { name: file.name, size: file.size, type: file.type, data: r.result };
+      updateLibFileInfo();
+    };
+    r.onerror = function () {
+      alert('Не удалось прочитать файл');
+      e.target.value = '';
+    };
+    r.readAsDataURL(file);
+  });
+
+  document.getElementById('saveLibItem').addEventListener('click', function () {
+    var title = document.getElementById('libTitle').value.trim();
+    if (!title) {
+      toast('Укажите название');
+      return;
+    }
+    var item = {
+      category: normalizeLibCat(document.getElementById('libCategory').value),
+      title: title,
+      author: document.getElementById('libAuthor').value.trim(),
+      url: document.getElementById('libUrl').value.trim(),
+      note: document.getElementById('libNote').value.trim(),
+      file: pendingLibFile ? {
+        name: pendingLibFile.name,
+        size: pendingLibFile.size,
+        type: pendingLibFile.type || '',
+        data: pendingLibFile.data
+      } : null
+    };
+    try {
+      // проверка размера библиотеки
+      var test = library.slice();
+      if (editingLibIndex !== null) test[editingLibIndex] = item;
+      else test = [item].concat(test);
+      var packed = JSON.stringify(test);
+      if (packed.length > 4.5 * 1024 * 1024) {
+        toast('Слишком большой объём. Уберите файл или используйте ссылку.');
+        return;
+      }
+    } catch (err) {
+      toast('Не удалось сохранить — файл слишком большой');
+      return;
+    }
+    if (editingLibIndex !== null) {
+      library[editingLibIndex] = item;
+      libTab = item.category;
+      toast('Запись обновлена');
+    } else {
+      library.unshift(item);
+      libTab = item.category;
+      toast('Добавлено в библиотеку');
+    }
+    saveLibrary();
+    resetLibForm();
+    renderLibrary();
+  });
+
+  document.getElementById('closeHistory').addEventListener('click', function () {
+    document.getElementById('historyDialog').close();
+  });
+  document.getElementById('closeHistory2').addEventListener('click', function () {
+    document.getElementById('historyDialog').close();
+  });
+
+  // Init
+  projects = loadProjects();
+  library = loadLibrary();
+  updateUndoBtn();
+  tick();
+  setInterval(tick, 30000);
+  render();
+})();
+</script>
+</body>
+</html>
